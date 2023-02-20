@@ -3,6 +3,7 @@ package com.example.generateUuid.controller;
 import com.example.generateUuid.entity.EmailInfo;
 import com.example.generateUuid.service.UuidForEmailService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 
 @WebMvcTest(MainController.class)
+@Log4j2
 class MainControllerTest {
     public static final ObjectMapper MAPPER = new ObjectMapper();
     @Autowired
@@ -42,7 +44,7 @@ class MainControllerTest {
         final var mail ="test@test.com";
         EmailInfo emailInfoBefore = EmailInfo.builder().mail(mail).build();
         EmailInfo emailInfoAfter = EmailInfo.builder().mail(mail).uuid(uuidSrting).build();
-        doReturn(uuid)
+        doReturn(emailInfoAfter)
                 .when(uuidForEmailService)
                 .getUuid(mail);
 
